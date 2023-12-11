@@ -1,10 +1,13 @@
 class WebhooksController < ApplicationController
-  rescue_from JSON::ParserError, Stripe::SignatureVerificationError, with: :handle_invalid_request
-
   def create
-    event = construct_event
-    handle_event(event)
-    head :ok
+    begin
+      event = construct_event
+      handle_event(event)
+    rescue Stripe::SignatureVerificationError => e
+      head :bad_request
+    else
+      head :ok
+    end
   end
 
   private
@@ -32,9 +35,5 @@ class WebhooksController < ApplicationController
 
   def handle_charge_succeeded(charge)
     # Save your subscription here
-  end
-
-  def handle_invalid_request(exception)
-    status :bad_request
   end
 end
