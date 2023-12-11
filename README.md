@@ -1,0 +1,1 @@
+# paprikas_rails_stripe_test
