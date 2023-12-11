@@ -39,6 +39,15 @@ gem 'stripe'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'pry', platform: :mri
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.5'
+  gem 'factory_bot'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem "webmock"
 end
 
 group :development do
